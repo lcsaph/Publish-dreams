@@ -1,0 +1,55 @@
+import requests
+
+def publish_dream(bot, nickname, dream_info):
+  """Publishes a dream to a webpage.
+
+  Args:
+    bot: The IRC bot object.
+    nickname: The nickname of the user who submitted the dream.
+    dream_info: The information about the dream, such as the title, date, and description.
+  """
+
+  # Get the URL of the webpage to publish to.
+  webpage_url = "https://altruisticmassageandyoga.com/publish-dreams"
+
+  # Build the request data.
+  request_data = {
+    "nickname": nickname,
+    "dream_info": dream_info,
+  }
+
+  # Make the request to the webpage.
+  response = requests.post(webpage_url, data=request_data)
+
+  # Check the response status code.
+  if response.status_code == 200:
+    # The dream was successfully published.
+    bot.send_message("Your dream has been published.")
+  else:
+    # An error occurred while publishing the dream.
+    bot.send_message("An error occurred while publishing your dream.")
+
+
+import requests
+
+# Get the nickname and dream info from the user
+nickname = input("What is your nickname? ")
+dream_info = input("What is your dream? ")
+
+# Build the request URL
+url = "https://api.slashnet.com/publish"
+
+# Create the request body
+body = {
+    "nickname": nickname,
+    "dream_info": dream_info
+}
+
+# Send the request
+response = requests.post(url, json=body)
+
+# Check the response status code
+if response.status_code == 200:
+    print("Your dream has been published!")
+else:
+    print("There was an error publishing your dream.")
